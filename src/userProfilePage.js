@@ -8,12 +8,13 @@ import {
   Grid,
 } from "semantic-ui-react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { schema } from "./utils/schema";
 
 const UserProfilePage = (props) => {
   const [orders, setOrders] = useState([]);
   const [route, toggleRoute] = useState(false);
+  const [cardKey, setcardKey] = useState(0);
   useEffect(() => {
     // get all orders of an user
     let [userdata] = schema.users;
@@ -21,8 +22,9 @@ const UserProfilePage = (props) => {
     setOrders(userdata.myOrders);
   }, []);
 
-  const handleClick = (e) => {
+  const handleClick = (key) => {
     toggleRoute(!route);
+    setcardKey(key);
   };
 
   return (
@@ -46,26 +48,19 @@ const UserProfilePage = (props) => {
           <Grid.Column>
             <Header as="h5"> Orders </Header>
             <Card.Group>
-              {orders.map((r) => (
+              {orders.map((r, idx) => (
                 <>
-                  <Card>
+                  <Card key={idx}>
                     <Card.Content>
                       <h4> Item: {r.orderName} </h4>
                       <h5> OrderId: {r.orderId} </h5>
                       <p> Rs. {r.orderAmount} </p>
                     </Card.Content>
-                    <Accordion>
-                      <Accordion.Title onClick={handleClick}>
-                        <Icon name="dropdown" />
-                        Order Details
-                      </Accordion.Title>
-                      <Accordion.Content active={route}>
-                        SOME SHIT & A MAP
-                      </Accordion.Content>
-                    </Accordion>
+                    <Link to="/order"> More details </Link>
                   </Card>
                 </>
               ))}
+              ;
             </Card.Group>
           </Grid.Column>
         </Grid.Row>

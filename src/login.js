@@ -45,6 +45,7 @@ const Login = () => {
       .then(() => {
         console.log("POST METHOD DONE !");
         toggleSignIn(!signIn);
+        addSaltToLocalStorage(password);
         handleUserInput("username", "");
         handleUserInput("password", "");
         handleUserInput("fullName", "");
@@ -66,6 +67,7 @@ const Login = () => {
       .then(() => {
         console.log("POST (Sign in) Done !");
         toggleSignIn(!signIn);
+        addSaltToLocalStorage(password);
         handleUserInput("username", "");
         handleUserInput("password", "");
         handleUserInput("fullName", "");
@@ -73,6 +75,17 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const addSaltToLocalStorage = (password) => {
+    let pwdLength = password.length;
+    let reqdLength = 32 - pwdLength;
+    let salt = "";
+    for (let i = 1; i <= reqdLength; i++) {
+      let chr = String.fromCharCode(97 + i);
+      salt += chr;
+    }
+    window.localStorage.setItem("key", `${password}${salt}`);
   };
 
   const togglePassword = () => {
@@ -90,7 +103,7 @@ const Login = () => {
       <Card style={styles.container}>
         <Card.Content>
           <Card.Header>
-            <h2 style={styles.header}>AMAZON.COM</h2>
+            <h2 style={styles.header}>BestBuy</h2>
           </Card.Header>
           <Divider />
           <Form>
