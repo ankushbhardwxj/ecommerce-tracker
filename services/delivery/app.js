@@ -11,7 +11,7 @@ mongoose.connect(process.env.DB_URI, {
 });
 
 mongoose.set("debug", true);
-const db = mongoose.n;
+const db = mongoose.connection;
 db.on("error", () => console.log("FAILED TO CONNECT TO ATLAS"));
 db.once("open", () => console.log("SUCCESSFULLY CONNECTED TO ATLAS"));
 
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // controllers
-app.use("/api/delivery", require("./deliveryRoutes"));
+app.use("/api/deliveries", require("./deliveryRoutes"));
 
 // start server
 app.listen(PORT, () => {
