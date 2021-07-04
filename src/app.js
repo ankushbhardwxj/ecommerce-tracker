@@ -6,17 +6,21 @@ import {
   Redirect,
 } from "react-router-dom";
 import { Container } from "semantic-ui-react";
-import Login from "./login";
-import Homepage from "./homepage";
-import UserProfilePage from "./userProfilePage";
-import Order from "./orderPage";
+import LoginCustomer from "./components/auth/loginCustomer";
+import LoginDelivery from "./components/auth/loginDelivery";
+import Homepage from "./components/homepage";
+import ProductPage from "./components/customer/productsPage";
+import Cart from "./components/customer/cartPage";
+import Orders from "./components/customer/ordersPage";
 
 const routes = [
-  { path: "/login", main: () => <Login /> },
-  { path: "/profile", main: () => <UserProfilePage /> },
-  { path: "/order", main: () => <Order /> },
+  { path: "/orders", main: () => <Orders /> },
+  { path: "/cart", main: () => <Cart /> },
+  { path: "/products", main: () => <ProductPage /> },
+  { path: "/loginCustomers", main: () => <LoginCustomer /> },
+  { path: "/loginDelivery", main: () => <LoginDelivery /> },
   { path: "/", main: () => <Homepage /> },
-  { path: "*", main: () => <div> 404 </div> },
+  { path: "*", main: () => <div> NOT FOUND: 404 </div> },
 ];
 
 const App = () => {

@@ -30,8 +30,15 @@ app.use((req, res, next) => {
 
 // controllers
 app.use("/api/order", require("./productRoutes"));
+app.use("/api/cart", require("./cartRoutes"));
 
 // start server
 app.listen(PORT, () => {
   console.log(`Server running at PORT: ${PORT}`);
+  console.log("/api/order/createOrder");
+  console.log("/api/order/getOrder");
+  console.log("/api/order/updateOrder");
+  console.log("/api/cart/addToCart");
+  console.log("/api/cart/getCart");
+  console.log("/api/cart/deleteItem");
 });

@@ -50,7 +50,6 @@ const OrderPage = (props) => {
               <p> Order ID: {order.orderId} </p>
               <Header as="h4">Rs.{order.orderAmount} </Header>
               <p>
-                {" "}
                 Expected delivery date:<b> 20 June 2021</b>
               </p>
               <Accordion>

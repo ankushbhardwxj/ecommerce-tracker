@@ -18,9 +18,10 @@ const Homepage = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <Container>
-      <h1 style={{ fontFamily: "Staatliches", fontSize: "170px" }}>
+      <h1 style={{ fontFamily: "Staatliches", fontSize: "150px" }}>
         {" "}
         BESTBUY.COM{" "}
       </h1>
@@ -32,6 +33,7 @@ const Homepage = () => {
           {product &&
             product.map((r, i) => (
               <Card
+                key={i}
                 image={r.image}
                 header={r.title}
                 meta={r.price}

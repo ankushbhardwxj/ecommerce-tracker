@@ -11,6 +11,8 @@ router.post("/createOrder", async (req, res) => {
       _id: new mongoose.Types.ObjectId(),
       orderItemName: req.body.orderItemName,
       orderItemPrice: req.body.orderItemPrice,
+      orderItemDescription: req.body.orderItemDescription,
+      orderItemImage: req.body.orderItemImage,
       onTransit: req.body.onTransit,
       delivered: req.body.delivered,
       lat: req.body.lat,
@@ -29,9 +31,9 @@ router.post("/createOrder", async (req, res) => {
   }
 });
 // GET : get order details from data base
-router.get("/getOrder", async (req, res) => {
+router.get("/getOrder/:username", async (req, res) => {
   try {
-    const getOrderInfo = await User.findOne({ username: req.body.username });
+    const getOrderInfo = await User.findOne({ username: req.params.username });
     const orders = getOrderInfo.orders;
     const results = await Order.find({ _id: { $in: orders } });
     res.status(201).json(results);

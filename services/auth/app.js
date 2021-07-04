@@ -32,4 +32,6 @@ app.use("/api/auth", require("./authRoutes"));
 
 app.listen(PORT, () => {
   console.log(`Server running at PORT: ${PORT}`);
+  console.log("/api/auth/signup");
+  console.log("/api/auth/signin");
 });

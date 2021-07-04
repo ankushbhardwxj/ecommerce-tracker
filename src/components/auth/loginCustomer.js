@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import {
   Button,
@@ -7,12 +7,11 @@ import {
   Container,
   Divider,
   Form,
-  Grid,
   Input,
   Icon,
 } from "semantic-ui-react";
 
-const Login = () => {
+const LoginCustomer = () => {
   const [login, toggleLogin] = useState(true);
   const [signIn, toggleSignIn] = useState(false);
   const [fullname, setfullname] = useState("");
@@ -31,50 +30,45 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // TODO: DO SOME SHIT HERE
-    axios({
+    let signupRes = await axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signup",
+      url: "http://localhost:8001/api/auth/signup",
       data: {
         fullName: fullname,
         username: username,
         password: password,
+        type: "Customer"
       },
-    })
-      .then(() => {
-        console.log("POST METHOD DONE !");
-        toggleSignIn(!signIn);
-        addSaltToLocalStorage(password);
-        handleUserInput("username", "");
-        handleUserInput("password", "");
-        handleUserInput("fullName", "");
-      })
-      .catch((err) => {
-        console.log("ERROR !" + err);
-      });
+    });
+    if (signupRes) {
+      console.log("POST METHOD DONE !");
+      toggleSignIn(!signIn);
+      addSaltToLocalStorage(password);
+      handleUserInput("username", "");
+      handleUserInput("password", "");
+      handleUserInput("fullName", "");
+    }
   };
 
-  const handleSignIn = () => {
-    axios({
+  const handleSignIn = async () => {
+    let signinRes = await axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signin",
+      url: "http://localhost:8001/api/auth/signin",
       data: {
         username: username,
         password: password,
       },
-    })
-      .then(() => {
-        console.log("POST (Sign in) Done !");
-        toggleSignIn(!signIn);
-        addSaltToLocalStorage(password);
-        handleUserInput("username", "");
-        handleUserInput("password", "");
-        handleUserInput("fullName", "");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+    if (signinRes) {
+      console.log("POST (Sign in) Done !");
+      toggleSignIn(!signIn);
+      addSaltToLocalStorage(password);
+      handleUserInput("username", "");
+      handleUserInput("password", "");
+      handleUserInput("fullName", "");
+    }
   };
 
   const addSaltToLocalStorage = (password) => {
@@ -85,6 +79,7 @@ const Login = () => {
       let chr = String.fromCharCode(97 + i);
       salt += chr;
     }
+    window.localStorage.setItem("username", username);
     window.localStorage.setItem("key", `${password}${salt}`);
   };
 
@@ -95,7 +90,7 @@ const Login = () => {
   };
 
   if (signIn) {
-    return <Redirect to={"/profile"} />;
+    return <Redirect to={"/products"} />;
   }
 
   return (
@@ -225,4 +220,4 @@ const styles = {
   },
 };
 
-export default Login;
+export default LoginCustomer;

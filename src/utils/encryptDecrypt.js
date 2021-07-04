@@ -5,7 +5,7 @@ const crypto = require("crypto");
 //const ENCRYPTION_KEY = "abcdefghijklmnopqrstuvwxyzabcdef";
 //const IV_LENGTH = 16; // For AES, this is always 16
 
-function encrypt(text, ENCRYPTION_KEY, IV_LENGTH) {
+function encrypt(text, ENCRYPTION_KEY, IV_LENGTH = 16) {
   let iv = crypto.randomBytes(IV_LENGTH);
   let cipher = crypto.createCipheriv(
     "aes-256-cbc",
@@ -17,7 +17,7 @@ function encrypt(text, ENCRYPTION_KEY, IV_LENGTH) {
   return iv.toString("hex") + ":" + encrypted.toString("hex");
 }
 
-function decrypt(text, ENCRYPTION_KEY, IV_LENGTH) {
+function decrypt(text, ENCRYPTION_KEY, IV_LENGTH = 16) {
   let textParts = text.split(":");
   let iv = Buffer.from(textParts.shift(), "hex");
   let encryptedText = Buffer.from(textParts.join(":"), "hex");

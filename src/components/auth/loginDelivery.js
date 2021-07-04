@@ -12,7 +12,7 @@ import {
   Icon,
 } from "semantic-ui-react";
 
-const Login = () => {
+const LoginDelivery = () => {
   const [login, toggleLogin] = useState(true);
   const [signIn, toggleSignIn] = useState(false);
   const [fullname, setfullname] = useState("");
@@ -105,6 +105,7 @@ const Login = () => {
           <Card.Header>
             <h2 style={styles.header}>BestBuy</h2>
           </Card.Header>
+          <p> For delivery providers </p>
           <Divider />
           <Form>
             {!login && (
@@ -160,7 +161,7 @@ const Login = () => {
           </Form>
         </Card.Content>
         <Divider horizontal>OR</Divider>
-        <Card.Content extra>
+        <Card.Content>
           {login ? (
             <p style={{ color: "black" }}>
               Don't have an account ?
@@ -225,4 +226,4 @@ const styles = {
   },
 };
 
-export default Login;
+export default LoginDelivery;
