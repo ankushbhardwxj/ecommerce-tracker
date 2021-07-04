@@ -17,7 +17,7 @@ const OrderPage = (props) => {
       url: `http://localhost:8002/api/order/getOrder/${username}`,
     });
     if (getOrders) {
-      console.log(getOrders.data)
+      console.log(getOrders.data);
       setOrderItems(getOrders.data);
     }
   }, []);
@@ -39,8 +39,9 @@ const OrderPage = (props) => {
               image={decrypt(item.orderItemImage, key)}
               delivered={item.delivered}
               onTransit={item.onTransit}
-              lat={item.lat}
-              long={item.long}
+              lat={item.coordinates[item.coordinates.length - 1].lat}
+              long={item.coordinates[item.coordinates.length - 1].long}
+              coords={item.coordinates}
             />
           );
         })}

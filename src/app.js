@@ -12,8 +12,10 @@ import Homepage from "./components/homepage";
 import ProductPage from "./components/customer/productsPage";
 import Cart from "./components/customer/cartPage";
 import Orders from "./components/customer/ordersPage";
+import Deliveries from "./components/delivery/ordersPage";
 
 const routes = [
+  { path: "/deliveries", main: () => <Deliveries /> },
   { path: "/orders", main: () => <Orders /> },
   { path: "/cart", main: () => <Cart /> },
   { path: "/products", main: () => <ProductPage /> },

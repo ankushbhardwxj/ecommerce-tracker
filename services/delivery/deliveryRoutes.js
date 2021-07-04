@@ -31,10 +31,9 @@ router.get("/item/:id", async (req, res) => {
 router.put("/item/updateTransit", async (req, res) => {
   try {
     const { id, onTransit } = req.body;
-    const updateOrder = await Order.findOneAndUpdate({
+    await Order.findOneAndUpdate({
       _id: id,
-      onTransit: onTransit,
-    }).exec();
+    }, { onTransit: onTransit, }).exec();
     res.status(201).json({ message: "Order on Transit" });
   } catch (err) {
     console.log(err);
@@ -46,10 +45,9 @@ router.put("/item/updateTransit", async (req, res) => {
 router.put("/item/updateItemDelivered", async (req, res) => {
   try {
     const { id, delivered } = req.body;
-    const updateOrder = await Order.findOneAndUpdate({
+    await Order.findOneAndUpdate({
       _id: id,
-      delivered: delivered,
-    }).exec();
+    }, { delivered: delivered, }).exec();
     res.status(201).json({ message: "Order Delivered" });
   } catch (err) {
     console.log(err);
@@ -57,11 +55,11 @@ router.put("/item/updateItemDelivered", async (req, res) => {
   }
 });
 
-// update order coordinatest
+// update order coordinates
 router.put("/item/updateCoordinates", async (req, res) => {
   try {
     let { id, lat, long } = req.body;
-    await Order.findOneAndUpdate({ _id: id }, { lat: lat, long: long }).exec();
+    await Order.findOneAndUpdate({ _id: id }, { $push: { coordinates: { lat: lat, long: long } } }).exec();
     res.status(201).json({ message: "cordinate update successful" });
   } catch (err) {
     console.log(err);

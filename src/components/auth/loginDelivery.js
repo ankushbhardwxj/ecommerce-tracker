@@ -35,11 +35,12 @@ const LoginDelivery = () => {
     // TODO: DO SOME SHIT HERE
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signup",
+      url: "http://localhost:8001/api/auth/signup",
       data: {
         fullName: fullname,
         username: username,
         password: password,
+        type: "Admin"
       },
     })
       .then(() => {
@@ -58,7 +59,7 @@ const LoginDelivery = () => {
   const handleSignIn = () => {
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signin",
+      url: "http://localhost:8001/api/auth/signin",
       data: {
         username: username,
         password: password,
@@ -85,7 +86,8 @@ const LoginDelivery = () => {
       let chr = String.fromCharCode(97 + i);
       salt += chr;
     }
-    window.localStorage.setItem("key", `${password}${salt}`);
+    window.localStorage.setItem("usernameAdmin", username);
+    window.localStorage.setItem("keyAdmin", `${password}${salt}`);
   };
 
   const togglePassword = () => {
@@ -95,7 +97,7 @@ const LoginDelivery = () => {
   };
 
   if (signIn) {
-    return <Redirect to={"/profile"} />;
+    return <Redirect to={"/deliveries"} />;
   }
 
   return (

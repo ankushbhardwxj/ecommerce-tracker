@@ -8,7 +8,6 @@ const orderSchema = mongoose.Schema({
   orderItemImage: { type: String, required: true },
   onTransit: { type: Boolean },
   delivered: { type: Boolean },
-  lat: { type: Number, required: true },
-  long: { type: Number, required: true },
+  coordinates: [{ lat: Number, long: Number }]
 });
 module.exports = mongoose.model("Orders", orderSchema);

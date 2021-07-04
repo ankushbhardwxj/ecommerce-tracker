@@ -15,8 +15,7 @@ router.post("/createOrder", async (req, res) => {
       orderItemImage: req.body.orderItemImage,
       onTransit: req.body.onTransit,
       delivered: req.body.delivered,
-      lat: req.body.lat,
-      long: req.body.long,
+      coordinates: [{ lat: req.body.lat, long: req.body.long }]
     });
     await order.save();
     const user = User.updateOne(

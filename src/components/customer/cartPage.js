@@ -4,8 +4,10 @@ import { Container, Button, Grid, Card } from "semantic-ui-react";
 import axios from "axios";
 import CartEntity from "./cartEntity";
 import { encrypt, decrypt } from "../../utils/encryptDecrypt";
+import random from "random-coordinates";
 
 const CartPage = (props) => {
+  console.log(random());
   const username = window.localStorage.getItem('username');
   const key = window.localStorage.getItem('key');
   const [cartItems, setCardItems] = useState([]);
@@ -30,6 +32,7 @@ const CartPage = (props) => {
         break;
       }
     }
+    let [lat, long] = random().split(", ");
     let buyItem = await axios({
       method: "POST",
       url: "http://localhost:8002/api/order/createOrder",
@@ -41,8 +44,8 @@ const CartPage = (props) => {
         orderItemImage: encrypt(image, key),
         onTransit: false,
         delivered: false,
-        lat: Math.random() * 360 - 180,
-        long: Math.random() * 360 - 180
+        lat: lat,
+        long: long
       }
     })
     if (buyItem) {

@@ -6,7 +6,7 @@ const orderSchema = mongoose.Schema({
   orderItemPrice: { type: Number, required: true },
   onTransit: { type: Boolean },
   delivered: { type: Boolean },
-  lat: { type: Number, required: true },
-  long: { type: Number, required: true },
+  coordinates: [{ lat: Number, long: Number, date: { type: Date, default: Date.now } }]
 });
+
 module.exports = mongoose.model("Orders", orderSchema);
