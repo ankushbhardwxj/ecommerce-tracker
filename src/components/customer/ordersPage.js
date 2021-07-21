@@ -14,7 +14,7 @@ const OrderPage = (props) => {
   useEffect(async () => {
     let getOrders = await axios({
       method: "GET",
-      url: `http://localhost:8002/api/order/getOrder/${username}`,
+      url: `http://localhost:8000/api/order/getOrder/${username}`,
     });
     if (getOrders) {
       console.log(getOrders.data);

@@ -35,12 +35,12 @@ const LoginDelivery = () => {
     // TODO: DO SOME SHIT HERE
     axios({
       method: "POST",
-      url: "http://localhost:8001/api/auth/signup",
+      url: "http://localhost:8000/api/auth/signup",
       data: {
         fullName: fullname,
         username: username,
         password: password,
-        type: "Admin"
+        type: "Admin",
       },
     })
       .then(() => {
@@ -59,7 +59,7 @@ const LoginDelivery = () => {
   const handleSignIn = () => {
     axios({
       method: "POST",
-      url: "http://localhost:8001/api/auth/signin",
+      url: "http://localhost:8000/api/auth/signin",
       data: {
         username: username,
         password: password,

@@ -4,25 +4,24 @@ import axios from "axios";
 import { encrypt } from "../../utils/encryptDecrypt";
 
 const productCard = ({ title, image, description, price }) => {
-
   const handleAddToCart = async () => {
     let username = window.localStorage.getItem("username");
     let key = window.localStorage.getItem("key");
     let addToCart = await axios({
       method: "POST",
-      url: "http://localhost:8002/api/cart/addToCart",
+      url: "http://localhost:8000/api/cart/addToCart",
       data: {
         ItemName: encrypt(title, key),
         ItemPrice: encrypt(String(price), key),
         ItemImage: encrypt(image, key),
         ItemDescription: encrypt(description, key),
-        username: username
-      }
-    })
+        username: username,
+      },
+    });
     if (addToCart) {
       console.log("Successfully added to cart.");
     }
-  }
+  };
 
   return (
     <Card>
@@ -33,7 +32,10 @@ const productCard = ({ title, image, description, price }) => {
         <Card.Content>
           <h3>Rs.{price}</h3>
         </Card.Content>
-        <Button primary onClick={handleAddToCart}> Add to cart </Button>
+        <Button primary onClick={handleAddToCart}>
+          {" "}
+          Add to cart{" "}
+        </Button>
       </Card.Content>
     </Card>
   );

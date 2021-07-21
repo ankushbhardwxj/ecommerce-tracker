@@ -34,12 +34,12 @@ const LoginCustomer = () => {
     // TODO: DO SOME SHIT HERE
     let signupRes = await axios({
       method: "POST",
-      url: "http://localhost:8001/api/auth/signup",
+      url: "http://localhost:8000/api/auth/signup",
       data: {
         fullName: fullname,
         username: username,
         password: password,
-        type: "Customer"
+        type: "Customer",
       },
     });
     if (signupRes) {
@@ -55,7 +55,7 @@ const LoginCustomer = () => {
   const handleSignIn = async () => {
     let signinRes = await axios({
       method: "POST",
-      url: "http://localhost:8001/api/auth/signin",
+      url: "http://localhost:8000/api/auth/signin",
       data: {
         username: username,
         password: password,

@@ -8,15 +8,15 @@ import random from "random-coordinates";
 
 const CartPage = (props) => {
   console.log(random());
-  const username = window.localStorage.getItem('username');
-  const key = window.localStorage.getItem('key');
+  const username = window.localStorage.getItem("username");
+  const key = window.localStorage.getItem("key");
   const [cartItems, setCardItems] = useState([]);
   const [refresh, toggleRefresh] = useState(false);
   // fetch all cart items
   useEffect(async () => {
     let getAllCartItems = await axios({
       method: "GET",
-      url: `http://localhost:8002/api/cart/getCart/${username}`,
+      url: `http://localhost:8000/api/cart/getCart/${username}`,
     });
     setCardItems(getAllCartItems.data);
   }, [refresh]);
@@ -35,7 +35,7 @@ const CartPage = (props) => {
     let [lat, long] = random().split(", ");
     let buyItem = await axios({
       method: "POST",
-      url: "http://localhost:8002/api/order/createOrder",
+      url: "http://localhost:8000/api/order/createOrder",
       data: {
         username: username,
         orderItemName: encrypt(name, key),
@@ -45,27 +45,27 @@ const CartPage = (props) => {
         onTransit: false,
         delivered: false,
         lat: lat,
-        long: long
-      }
-    })
+        long: long,
+      },
+    });
     if (buyItem) {
       console.log("Item added to orders");
       removeItem(id);
       toggleRefresh(!refresh);
     }
-  }
+  };
 
   const removeItem = async (id) => {
     let deleteItem = await axios({
       method: "DELETE",
-      url: "http://localhost:8002/api/cart/deleteItem",
+      url: "http://localhost:8000/api/cart/deleteItem",
       data: {
-        id: id
-      }
-    })
+        id: id,
+      },
+    });
     if (deleteItem) console.log("Delete Item done !");
     toggleRefresh(!refresh);
-  }
+  };
 
   return (
     <Container style={{ marginTop: "10px" }}>
@@ -75,16 +75,18 @@ const CartPage = (props) => {
       </Link>
       {cartItems &&
         cartItems.map((item) => {
-          return <CartEntity
-            key={item._id}
-            id={item._id}
-            title={decrypt(item.ItemName, key)}
-            price={decrypt(item.ItemPrice, key)}
-            description={decrypt(item.ItemDescription, key)}
-            image={decrypt(item.ItemImage, key)}
-            remove={removeItem}
-            buy={buyItem}
-          />;
+          return (
+            <CartEntity
+              key={item._id}
+              id={item._id}
+              title={decrypt(item.ItemName, key)}
+              price={decrypt(item.ItemPrice, key)}
+              description={decrypt(item.ItemDescription, key)}
+              image={decrypt(item.ItemImage, key)}
+              remove={removeItem}
+              buy={buyItem}
+            />
+          );
         })}
     </Container>
   );

@@ -35,7 +35,7 @@ const Login = () => {
     // TODO: DO SOME SHIT HERE
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signup",
+      url: "http://localhost:8000/api/auth/signup",
       data: {
         fullName: fullname,
         username: username,
@@ -58,7 +58,7 @@ const Login = () => {
   const handleSignIn = () => {
     axios({
       method: "POST",
-      url: "http://localhost:8080/api/auth/signin",
+      url: "http://localhost:8000/api/auth/signin",
       data: {
         username: username,
         password: password,
